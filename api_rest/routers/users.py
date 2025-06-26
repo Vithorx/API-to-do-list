@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate
 from ninja.errors import HttpError
 from api_rest.schemas import UserSchema, UserRegisterSchema,ErrorSchema
 from ninja_jwt.authentication import JWTAuth
-
+from typing import List
 
 router = Router(tags=["Usuarios"])
 
@@ -23,23 +23,20 @@ def registro(request,payload:UserRegisterSchema):
     
     try:
         user = Usuario.objects.create_user(
-            username=payload.username,
+            username=payload.email,
             email=payload.email,
             password=payload.password,
-            idade = payload.idade
+            idade = payload.idade,
+            first_name = payload.first_name
         )
         return 201,user
     except Exception as e:
         return 400,{"message":f"Erro ao criar um usuario:{(e)}"}
 
-@router.get(
-    "/me",
-    response=UserSchema,
-    auth=JWTAuth(),
-    summary="Obter informações do usuário autenticado"
-)
-def get_current_user(request):
-    user = request.auth
-    if user and user.is_authenticated:
-        return user
-    return 401, {"message": "Usuário não autenticado"}
+
+
+@router.get("/getAll", response=List[UserSchema], auth=None,summary="Exibir todos os usuarios cadastrados")
+
+def getAllUsers(request):
+    user = Usuario.objects.all()
+    return user

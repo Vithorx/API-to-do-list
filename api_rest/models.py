@@ -4,19 +4,19 @@ from django.contrib.auth.models import AbstractUser
 
 class Usuario(AbstractUser):
     email = models.EmailField(unique=True)
-    idade = models.IntegerField()
+    idade = models.IntegerField(null=True,blank=True)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username','first_name']
     def __str__(self):
         return self.email
 
 class Tarefa(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,related_name='tarefas')
+    usuario = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,related_name='tarefas')
     titulo = models.CharField(max_length=100)
     descricao = models.TextField(blank=True)
-    conluida = models.BooleanField(default=False)
+    concluida = models.BooleanField(default=False)
     data_criacao = models.DateTimeField(auto_now_add=True)
-    data_vencimento = models.DateField()
+    data_vencimento = models.DateField(null=True, blank=True)
 
     def __str__(self):
         return self.titulo

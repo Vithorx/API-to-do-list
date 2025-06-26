@@ -1,4 +1,4 @@
-from typing import List,Optional
+from typing import List
 from ninja import Router
 from django.shortcuts import get_object_or_404
 from ninja_jwt.authentication import JWTAuth
@@ -13,7 +13,7 @@ router = Router()
     summary="Listar as tarefas do usuario autenticado",
 )
 def listar_tarefas(request):
-    tarefas = Tarefa.objects.filter(user = request.auth)
+    tarefas = Tarefa.objects.filter(usuario = request.auth)
     return tarefas
 
 @router.post(
@@ -23,7 +23,7 @@ def listar_tarefas(request):
     summary="Criar uma nova Tarefa"
 )
 def criar_tarefa(request,payload:TarefaCreateSchema):
-    tarefa = Tarefa.objects.create(user=request.auth,**payload.dict())
+    tarefa = Tarefa.objects.create(usuario=request.auth,**payload.dict())
     return 201, tarefa
 
 @router.get(
@@ -34,7 +34,7 @@ def criar_tarefa(request,payload:TarefaCreateSchema):
 )
 
 def buscar_tarefa_pelo_id(request, tarefa_id:int):
-    tarefa = get_object_or_404(Tarefa,id = tarefa_id,user=request.auth)
+    tarefa = get_object_or_404(Tarefa,id = tarefa_id,usuario=request.auth)
     return tarefa
 
 @router.get(
@@ -45,7 +45,7 @@ def buscar_tarefa_pelo_id(request, tarefa_id:int):
 )
 
 def buscar_tarefa_pelo_titulo(request,tarefa_titulo:str):
-    tarefa = Tarefa.objects.filter(titulo__icontains=tarefa_titulo, user=request.auth)
+    tarefa = Tarefa.objects.filter(titulo__icontains=tarefa_titulo, usuario=request.auth)
     return tarefa
 
 @router.put(
@@ -55,7 +55,7 @@ def buscar_tarefa_pelo_titulo(request,tarefa_titulo:str):
     summary="Atualizar uma Tarefa"
 )
 def atualizar_tarefa(request,tarefa_id:int,payload:TarefaUpdateSchema):
-    tarefa = get_object_or_404(Tarefa,id=tarefa_id, user=request.auth)
+    tarefa = get_object_or_404(Tarefa,id=tarefa_id, usuario=request.auth)
     for attr,value in payload.dict(exclude_unset=True).items():
         setattr(tarefa,attr,value)
     tarefa.save()
@@ -68,19 +68,19 @@ def atualizar_tarefa(request,tarefa_id:int,payload:TarefaUpdateSchema):
     summary="Deletar Tarefa"
 )
 def deletar_tarefa(request,tarefa_id:int):
-    tarefa = get_object_or_404(Tarefa,id=tarefa_id,user=request.auth)
+    tarefa = get_object_or_404(Tarefa,id=tarefa_id,usuario=request.auth)
     tarefa.delete()
     return 204,None
 
 @router.post(
-    "{tarefa_id}",
+    "{tarefa_id}/marcar-completa",
     response=TarefaSchema,
     auth=JWTAuth(),
-    summary="Marca uma tarefa como concluída",
+    summary="Alternar o status de uma tarefa concluída ou pendente",
 )
 def concluir_tarefa(request,tarefa_id:int):
-    tarefa = get_object_or_404(Tarefa,id = tarefa_id,user = request.auth)
-    tarefa.conluida = True
+    tarefa = get_object_or_404(Tarefa,id = tarefa_id,usuario = request.auth)
+    tarefa.concluida = not tarefa.concluida
     tarefa.save()
     return tarefa
 
