@@ -94,7 +94,7 @@ WSGI_APPLICATION = 'api_root.wsgi.application'
 if 'RENDER' in os.environ:
     DATABASE = {
         'default': dj_database_url.config(
-            coon_max_age = 600,
+            conn_max_age = 600,
             ssl_require = True
         )
     }
