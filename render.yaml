@@ -9,8 +9,8 @@ services:
   - type: web
     name: todolist-api
     env: python
-    buildCommand: "./build.sh"
-    startCommand: "python manage.py migrate && gunicorn api_root.wsgi:application"
+    buildCommand: "bash build.sh"
+    startCommand: "python manage.py migrate && gunicorn api_root.wsgi"
     envVars:
       - key: DATABASE_URL
         fromService:
@@ -23,4 +23,4 @@ services:
         value: 4
       - key: CORS_ALLOWED_ORIGINS
         # ATUALIZAREMOS ESTE VALOR DEPOIS
-        value: "http://127.0.0.1:5500"
+        value: "https://to-dolista.netlify.app"
