@@ -10,7 +10,7 @@ services:
     name: todolist-api
     env: python
     buildCommand: "./build.sh"
-    startCommand: "gunicorn api_root.wsgi:application"
+    startCommand: "python manage.py migrate && gunicorn api_root.wsgi:application"
     envVars:
       - key: DATABASE_URL
         fromService:
