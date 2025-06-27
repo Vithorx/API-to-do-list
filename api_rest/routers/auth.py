@@ -20,19 +20,13 @@ def login(request,data:LoginSchema):
     user = authenticate(email= data.email,password=data.password)
     if not user:
         return 401,{"message":"E-mail ou senha invalidas"}
-    user_data_para_json = {
-        "id": user.id,
-        "username": user.username,
-        "email": user.email,
-        "first_name": user.first_name
-    }
     refresh = RefreshToken.for_user(user)
     return{
         "tokens":{
             "access": str(refresh.access_token),
             "refresh": str(refresh),
         },
-        "user": user_data_para_json,
+        "user": user,
     }
 
 @router.post(
