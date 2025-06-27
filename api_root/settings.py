@@ -92,14 +92,14 @@ WSGI_APPLICATION = 'api_root.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 if 'RENDER' in os.environ:
-    DATABASE = {
+    DATABASES = {
         'default': dj_database_url.config(
             conn_max_age = 600,
             ssl_require = True
         )
     }
 else:
-    DATABASE = {
+    DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
             'NAME': 'To-do-List',
