@@ -91,14 +91,25 @@ WSGI_APPLICATION = 'api_root.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    'default': dj_database_url.config(
-        default ='postgres://postgres:root@localhost:5432/To-do-List',
-        conn_max_age = 600,
-        ssl_require = 'DATABASE_URL' in os.environ
+if 'RENDER' in os.environ:
+    DATABASE = {
+        'default': dj_database_url.config(
+            coon_max_age = 600,
+            ssl_require = True
+        )
+    }
+else:
+    DATABASE = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'To-do-List',
+            'USER': 'postgres',
+            'PASSWORD': 'root',
+            'HOST': 'localhost',
+            'PORT': '5432',
+        }
+    }
 
-    )
-}
 
 
 # Password validation
