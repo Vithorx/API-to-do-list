@@ -8,9 +8,9 @@ services:
     envVars:
       - key: DATABASE_URL
         fromService:
-          type: database
+          type: pserv
           name: todolist-db
-          property: connectionString
+          property: connectionString  # <- aqui está o segredo!
       - key: SECRET_KEY
         generateValue: true
       - key: PYTHON_VERSION
@@ -20,9 +20,7 @@ services:
       - key: CORS_ALLOWED_ORIGINS
         value: "https://to-dolista.netlify.app"
 
-  - type: database
+  - type: pserv
     name: todolist-db
     plan: free
-    properties:
-      engine: postgres
-      version: 15
+    env: postgresql
