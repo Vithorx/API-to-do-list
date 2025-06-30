@@ -92,12 +92,25 @@ WSGI_APPLICATION = 'api_root.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+
 if 'RENDER' in os.environ:
     DATABASES = {
         'default': dj_database_url.config(
             conn_max_age=600,
             ssl_require=True
         )
+    }
+else:
+    # Configuração para quando estiver na sua máquina local
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'To-do-List',
+            'USER': 'postgres',
+            'PASSWORD': 'root', # Sua senha local
+            'HOST': 'localhost',
+            'PORT': '5432',
+        }
     }
 
 
