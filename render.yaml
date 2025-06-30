@@ -7,10 +7,8 @@ services:
     startCommand: "python manage.py migrate && gunicorn api_root.wsgi"
     envVars:
       - key: DATABASE_URL
-        fromService:
-          type: pserv
+        fromDatabase:
           name: todolist-db
-          property: connectionString  # <- aqui está o segredo!
       - key: SECRET_KEY
         generateValue: true
       - key: PYTHON_VERSION
@@ -20,7 +18,8 @@ services:
       - key: CORS_ALLOWED_ORIGINS
         value: "https://to-dolista.netlify.app"
 
-  - type: pserv
-    name: todolist-db
+databases:
+  - name: todolist-db
     plan: free
-    env: postgresql
+    databaseName: todolist
+    user: todolist_user
