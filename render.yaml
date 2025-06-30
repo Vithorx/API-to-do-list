@@ -1,11 +1,11 @@
 services:
   - type: pserv
     name: todolist-db
-    env: postgres
 
+  
   - type: web
     name: todolist-api
-    env: python
+    env: python 
     buildCommand: "bash build.sh"
     startCommand: "python manage.py migrate && gunicorn api_root.wsgi"
     envVars:
