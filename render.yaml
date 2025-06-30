@@ -14,7 +14,7 @@ services:
       - key: SECRET_KEY
         generateValue: true
       - key: PYTHON_VERSION
-        value: 3.11.3
+        value: 3.13.5
       - key: DEBUG
         value: False
       - key: CORS_ALLOWED_ORIGINS
@@ -23,5 +23,5 @@ services:
 databases:
   - name: todolist-db
     plan: free
-    databaseName: To-do-List
+    databaseName: todolist
     user: postgres
