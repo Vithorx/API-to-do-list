@@ -43,18 +43,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'ninja',
     'corsheaders',
-    'ninja_jwt',
+    'django_ninja_jwt',
     'ninja_extra',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
     'api_rest',
 ]
 
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
-}
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
