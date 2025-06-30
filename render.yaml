@@ -1,11 +1,9 @@
 services:
-  # O serviço do seu Banco de Dados PostgreSQL
   - type: pserv
     name: todolist-db
     env: postgres
     postgresMajorVersion: 14
 
-  # O serviço da sua Aplicação Web Django
   - type: web
     name: todolist-api
     env: python
@@ -21,6 +19,3 @@ services:
         generateValue: true
       - key: WEB_CONCURRENCY
         value: 4
-      - key: CORS_ALLOWED_ORIGINS
-        # ATUALIZAREMOS ESTE VALOR DEPOIS
-        value: "https://to-dolista.netlify.app"
