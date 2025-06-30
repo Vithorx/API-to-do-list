@@ -1,29 +1,25 @@
-# Arquivo render.yaml CORRIGIDO E FINAL
-
 services:
-  # --- Serviço do Banco de Dados PostgreSQL ---
-  - type: pserv
-    name: todolist-db
-    plan: free # Especifica o plano gratuito para o banco de dados
-
-  # --- Serviço da Aplicação Web Django ---
   - type: web
     name: todolist-api
     env: python
-    plan: free # Especifica o plano gratuito para o serviço web
+    plan: free
     buildCommand: "bash build.sh"
     startCommand: "python manage.py migrate && gunicorn api_root.wsgi"
     envVars:
       - key: DATABASE_URL
-        fromService:
-          type: pserv
-          name: todolist-db # O nome DEVE ser idêntico ao do serviço de banco de dados acima
-          property: connectionString
+        fromDatabase:
+          name: todolist-db
       - key: SECRET_KEY
-        generateValue: true # Gera uma chave segura automaticamente
+        generateValue: true
       - key: PYTHON_VERSION
-        value: 3.11.3 # Use a sua versão específica do Python
+        value: 3.11.3
       - key: DEBUG
         value: False
       - key: CORS_ALLOWED_ORIGINS
-        value: "https://to-dolista.netlify.app" # Sua URL do front-end
+        value: "https://to-dolista.netlify.app"
+
+databases:
+  - name: todolist-db
+    plan: free
+    databaseName: todolist
+    user: todolist_user
