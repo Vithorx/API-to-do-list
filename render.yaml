@@ -7,8 +7,10 @@ services:
     startCommand: "python manage.py migrate && gunicorn api_root.wsgi"
     envVars:
       - key: DATABASE_URL
-        fromDatabase:
+        fromService:
+          type: pserv
           name: todolist-db
+          property: connectionString
       - key: SECRET_KEY
         generateValue: true
       - key: PYTHON_VERSION
@@ -21,5 +23,5 @@ services:
 databases:
   - name: todolist-db
     plan: free
-    databaseName: todolist
-    user: todolist_user
+    databaseName: To-do-List
+    user: postgres
