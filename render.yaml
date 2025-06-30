@@ -24,4 +24,4 @@ databases:
   - name: todolist-db
     plan: free
     databaseName: todolist
-    user: postgres
+    user: todolist_user
