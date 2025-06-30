@@ -13,7 +13,7 @@ services:
         fromService:
           type: pserv
           name: todolist-db # O nome DEVE ser idêntico ao do serviço de banco de dados abaixo
-          property: connectionString
+          property: connectionStringUri
       - key: SECRET_KEY
         generateValue: true # Gera uma chave segura automaticamente
       - key: PYTHON_VERSION
