@@ -2,7 +2,6 @@ services:
   - type: pserv
     name: todolist-db
     env: postgres
-    postgresMajorVersion: 14
 
   - type: web
     name: todolist-api
