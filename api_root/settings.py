@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'ninja',
     'corsheaders',
-    'django_ninja_jwt',
+    'ninja_jwt',
     'ninja_extra',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
