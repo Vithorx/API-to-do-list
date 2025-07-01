@@ -1,8 +1,6 @@
-# Arquivo render.yaml - Versão Final e Estruturalmente Correta
 
 services:
-  # --- Serviço da Aplicação Web Django ---
-  # Primeiro definimos a aplicação web
+
   - type: web
     name: todolist-api
     env: python
@@ -13,19 +11,18 @@ services:
       - key: DATABASE_URL
         fromService:
           type: pserv
-          name: todolist-db # Agora ele vai encontrar o serviço definido abaixo
+          name: todolist_db 
           property: connectionString
       - key: SECRET_KEY
         generateValue: true
       - key: PYTHON_VERSION
-        value: 3.13.5 # Use a sua versão específica do Python
+        value: 3.13.5 
       - key: DEBUG
         value: False
       - key: CORS_ALLOWED_ORIGINS
-        value: "https://to-dolista.netlify.app" # Sua URL do front-end
+        value: "https://to-dolista.netlify.app" 
 
-  # --- Serviço do Banco de Dados PostgreSQL ---
-  # Definimos o banco de dados como outro serviço na mesma lista
+
   - type: pserv
-    name: todolist-db
+    name: todolist_db
     plan: free

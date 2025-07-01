@@ -97,13 +97,13 @@ if 'RENDER' in os.environ:
         )
     }
 else:
-    # Configuração para quando estiver na sua máquina local
+
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'To-do-List',
+            'NAME': 'todolist_db',
             'USER': 'postgres',
-            'PASSWORD': 'root', # Sua senha local
+            'PASSWORD': 'root', 
             'HOST': 'localhost',
             'PORT': '5432',
         }
