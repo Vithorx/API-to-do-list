@@ -16,7 +16,7 @@ services:
       - key: SECRET_KEY
         generateValue: true
       - key: PYTHON_VERSION
-        value: 3.13.5
+        value: 3.10.6
       - key: DEBUG
         value: False
       - key: CORS_ALLOW_ORIGINS
