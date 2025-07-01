@@ -156,7 +156,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CORS_TRUSTED_ORIGINS = os.environ.get('CORS_TRUSTED_ORIGINS', 'http://127.0.0.1:5500').split(',')
+CORS_ALLOW_ORIGINS = os.environ.get('CORS_ALLOW_ORIGINS', 'http://127.0.0.1:5500').split(',')
 
 
 SIMPLE_JWT = {
