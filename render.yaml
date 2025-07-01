@@ -1,3 +1,5 @@
+# Arquivo render.yaml usando a estrutura com a seção 'databases'
+
 services:
   - type: web
     name: todolist-api
@@ -7,20 +9,20 @@ services:
     startCommand: "python manage.py migrate && gunicorn api_root.wsgi"
     envVars:
       - key: DATABASE_URL
-        fromService:
-          type: postgres
-          name: todolist_db
+        fromDatabase: 
+          name: todolist-db 
           property: connectionString
       - key: SECRET_KEY
         generateValue: true
       - key: PYTHON_VERSION
-        value: 3.11.5
+        value: 3.13.5
       - key: DEBUG
         value: False
       - key: CORS_ALLOWED_ORIGINS
         value: "https://to-dolista.netlify.app"
 
 databases:
-  - name: todolist_db
+  - name: todolist-db
     plan: free
-    type: postgres
+    databaseName: todolist_db 
+    user: todolist_user
