@@ -8,21 +8,19 @@ services:
     envVars:
       - key: DATABASE_URL
         fromService:
-          type: psql 
+          type: postgres
           name: todolist_db
           property: connectionString
       - key: SECRET_KEY
         generateValue: true
       - key: PYTHON_VERSION
-        value: "3.11.5" 
+        value: 3.11.5
       - key: DEBUG
         value: False
       - key: CORS_ALLOWED_ORIGINS
         value: "https://to-dolista.netlify.app"
-        
+
 databases:
-  - type: psql 
-    name: todolist_db
+  - name: todolist_db
     plan: free
-    databaseName: todolist_db
-    user: postgres
+    type: postgres
