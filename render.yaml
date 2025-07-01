@@ -1,6 +1,4 @@
-
 services:
-
   - type: web
     name: todolist-api
     env: python
@@ -10,19 +8,18 @@ services:
     envVars:
       - key: DATABASE_URL
         fromService:
-          type: pserv
-          name: todolist_db 
+          type: postgres
+          name: todolist_db
           property: connectionString
       - key: SECRET_KEY
         generateValue: true
       - key: PYTHON_VERSION
-        value: 3.13.5 
+        value: 3.13.5
       - key: DEBUG
         value: False
       - key: CORS_ALLOWED_ORIGINS
-        value: "https://to-dolista.netlify.app" 
+        value: "https://to-dolista.netlify.app"
 
-
-  - type: pserv
+  - type: postgres
     name: todolist_db
     plan: free
