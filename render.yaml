@@ -5,6 +5,7 @@ services:
     name: todolist-api
     env: python
     plan: free
+    repo: https://github.com/Vithorx/API-to-do-list.git
     buildCommand: "bash build.sh"
     startCommand: "python manage.py migrate && gunicorn api_root.wsgi"
     envVars:
