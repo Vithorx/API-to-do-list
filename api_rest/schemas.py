@@ -44,7 +44,9 @@ class TarefaSchema(Schema):
     concluida: bool
     data_criacao: datetime
     prioridade: str | None
+    prioridade_display: str
     data_vencimento: date | None
+
 
 class TarefaCreateSchema(Schema):
     titulo: str

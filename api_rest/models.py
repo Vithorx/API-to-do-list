@@ -18,6 +18,10 @@ class Tarefa(models.Model):
     data_criacao = models.DateTimeField(auto_now_add=True)
     data_vencimento = models.DateField(null=True, blank=True)
 
+    @property
+    def prioridade_display(self):
+        return self.get_prioridade_display()
+
     def __str__(self):
         return self.titulo
     
